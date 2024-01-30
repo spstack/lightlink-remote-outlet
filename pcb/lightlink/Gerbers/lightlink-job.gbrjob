@@ -5,12 +5,12 @@
       "Application": "Pcbnew",
       "Version": "7.0.8"
     },
-    "CreationDate": "2024-01-23T00:11:49-05:00"
+    "CreationDate": "2024-01-29T20:53:27-05:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "RemoteOutlet",
-      "GUID": "52656d6f-7465-44f7-9574-6c65742e6b69",
+      "Name": "lightlink",
+      "GUID": "6c696768-746c-4696-9e6b-2e6b69636164",
       "Revision": "rev?"
     },
     "Size": {
@@ -34,47 +34,47 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "RemoteOutlet-F_Cu.gtl",
+      "Path": "lightlink-F_Cu.gtl",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "RemoteOutlet-B_Cu.gbl",
+      "Path": "lightlink-B_Cu.gbl",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "RemoteOutlet-F_Paste.gtp",
+      "Path": "lightlink-F_Paste.gtp",
       "FileFunction": "SolderPaste,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "RemoteOutlet-B_Paste.gbp",
+      "Path": "lightlink-B_Paste.gbp",
       "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "RemoteOutlet-F_Silkscreen.gto",
+      "Path": "lightlink-F_Silkscreen.gto",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "RemoteOutlet-B_Silkscreen.gbo",
+      "Path": "lightlink-B_Silkscreen.gbo",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "RemoteOutlet-F_Mask.gts",
+      "Path": "lightlink-F_Mask.gts",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "RemoteOutlet-B_Mask.gbs",
+      "Path": "lightlink-B_Mask.gbs",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "RemoteOutlet-Edge_Cuts.gm1",
+      "Path": "lightlink-Edge_Cuts.gm1",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }
