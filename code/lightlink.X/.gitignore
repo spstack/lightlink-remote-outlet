@@ -1,0 +1,12 @@
+
+# Ignore build folder
+build
+dist
+
+# ignore all build products
+*.i
+*.o
+*.d
+
+
+

@@ -1,0 +1,9 @@
+
+# Don't save the backup dir
+_backup
+
+# Object Files
+*.o
+
+# Lock Files
+*.lck

@@ -1,0 +1,48 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 7efd258b-cb88-4de5-af54-e5be8dd27051)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 27.94 26.67) (size 59.69 26.67) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 28c50c9a-4c01-429d-8411-b6ccfebde60e)
+    (property "Sheetname" "power" (at 27.94 25.9584 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "power.kicad_sch" (at 27.94 53.9246 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "RemoteOutlet"
+        (path "/7efd258b-cb88-4de5-af54-e5be8dd27051" (page "3"))
+      )
+    )
+  )
+
+  (sheet (at 29.21 64.77) (size 58.42 34.29) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 46935075-d583-487e-b60b-a66eebbbc0d0)
+    (property "Sheetname" "microcontroller_logic" (at 29.21 64.0584 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "microcontroller_logic.kicad_sch" (at 29.21 99.6446 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "RemoteOutlet"
+        (path "/7efd258b-cb88-4de5-af54-e5be8dd27051" (page "2"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)
