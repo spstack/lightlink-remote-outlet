@@ -1,6 +1,7 @@
 /**
-    @brief This contains all the methods for actions that this remote module can perform
-    @author Scott Stack
+ *  @file
+ *  @brief This contains all the methods for actions that this remote module can perform
+ *  @author Scott Stack
  */
 
 #include <stdio.h>
@@ -49,6 +50,7 @@ int switch_load(uint8_t load_id, uint8_t on_off)
         case LOAD_ID_OUTLET_0:
             global_data.current_switch_val = on_off;
             LOAD0_PIN = on_off;
+            DEBUG_LED_PIN = on_off;
             break;
         default:
             return ERROR_INVALID_LOAD_ID;

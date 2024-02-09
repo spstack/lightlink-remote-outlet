@@ -35,6 +35,10 @@ void __interrupt () main_isr(void)
         volatile int8_t dummy = 1;
         switch_load_cmd_t temp_command;
 
+        // Clear watchdog once before we go down to ensure we don't prematurely reset in the event
+        // that this is a power glitch or we lose 12V slowly
+        CLRWDT();
+
         // construct load switch command
         temp_command.header.magic_num = CMD_MAGIC_BYTE_VAL;
         temp_command.header.opcode = SWITCH_LOAD_OPCODE;
@@ -46,7 +50,7 @@ void __interrupt () main_isr(void)
         switch_load(LOAD_ID_OUTLET_0, SWITCH_OFF);
 
         // Next send several switch off commands to the other terminal in quick succession
-        for (int8_t i = 0; i < 5; i++) {
+        for (int8_t i = 0; i < 10; i++) {
             (void)RFM69_sendFrame(global_data.current_channel, &temp_command, sizeof(switch_load_cmd_t), false, false);
         }
         
