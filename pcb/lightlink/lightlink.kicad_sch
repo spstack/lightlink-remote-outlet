@@ -19,7 +19,7 @@
       (effects (font (size 1.27 1.27)) (justify left top))
     )
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051" (page "3"))
       )
     )
@@ -36,7 +36,7 @@
       (effects (font (size 1.27 1.27)) (justify left top))
     )
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051" (page "2"))
       )
     )

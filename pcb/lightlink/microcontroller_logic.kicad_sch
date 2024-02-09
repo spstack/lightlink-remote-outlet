@@ -2126,7 +2126,7 @@
     )
     (pin "1" (uuid 4f334789-c7c4-4987-9ead-114ef2e4a645))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
@@ -2154,7 +2154,7 @@
     )
     (pin "1" (uuid 20384ec3-a652-49b5-afd9-fecd800c3a57))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
@@ -2182,7 +2182,7 @@
     )
     (pin "1" (uuid 0a3aeec3-58ea-4ba8-af3a-2d2f9d2dc57f))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
@@ -2211,7 +2211,7 @@
     (pin "1" (uuid 8c2fb394-3d06-4949-aec1-459b0caf5606))
     (pin "2" (uuid e08cc0b7-3f68-4a7b-bb0c-ab949e14d5ce))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "R1") (unit 1)
         )
@@ -2236,7 +2236,7 @@
     )
     (pin "1" (uuid beb9ea60-7c54-43aa-9a88-f80ceba7c126))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
@@ -2267,7 +2267,7 @@
     (pin "3" (uuid ec1b0426-cda0-42c2-bc71-a55e94704f49))
     (pin "4" (uuid c953ae37-38f0-4c73-818d-f075044a9e19))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "SW2") (unit 1)
         )
@@ -2292,7 +2292,7 @@
     )
     (pin "1" (uuid 0445cff5-0cfc-4166-93bf-c5483e4fe506))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
@@ -2320,7 +2320,7 @@
     )
     (pin "1" (uuid ffd3ae13-b8d1-40a1-85f7-cf822c018549))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR02") (unit 1)
         )
@@ -2348,7 +2348,7 @@
     )
     (pin "1" (uuid 9e07fe2d-b26e-4df9-bf96-f49b80c1dc05))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR02") (unit 1)
         )
@@ -2376,7 +2376,7 @@
     )
     (pin "1" (uuid f093b4cd-e021-40de-8a1c-84b7edd9c6bf))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "#PWR07") (unit 1)
         )
@@ -2401,7 +2401,7 @@
     )
     (pin "1" (uuid d93fd8b2-645b-45cc-83ca-97f95592e790))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
@@ -2429,7 +2429,7 @@
     )
     (pin "1" (uuid eb993566-4635-48a9-b914-a5aa69bf8734))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
@@ -2464,7 +2464,7 @@
     (pin "1" (uuid e703387d-6254-456b-8274-a547d65285ae))
     (pin "2" (uuid 6bda454f-23c3-4200-95ac-dd037e9f5bce))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/28c50c9a-4c01-429d-8411-b6ccfebde60e"
           (reference "D3") (unit 1)
         )
@@ -2499,7 +2499,7 @@
     (pin "1" (uuid b8fe0761-9366-43e2-9a80-4e8c8c4ee616))
     (pin "2" (uuid c78a95da-354e-46a8-8cdf-77e0cb389025))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "D4") (unit 1)
         )
@@ -2531,7 +2531,7 @@
     (pin "7" (uuid dd38a539-ec93-4340-a157-809e3e476f1d))
     (pin "8" (uuid 77a93871-aaeb-4784-87a6-a30b491e8ec8))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "SW1") (unit 1)
         )
@@ -2556,7 +2556,7 @@
     )
     (pin "1" (uuid 13a408f0-9249-4a70-89ef-1a880646a726))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
@@ -2585,7 +2585,7 @@
     (pin "1" (uuid d444011f-db67-4773-94b5-1f2b332a342a))
     (pin "2" (uuid 2bba2a6c-67f3-41cb-ac3b-b921181936c6))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "R12") (unit 1)
         )
@@ -2611,7 +2611,7 @@
     (pin "1" (uuid 21cea96b-5155-4e43-8783-0e679ffd04c0))
     (pin "2" (uuid cc4c9467-0c1e-4e61-b4f2-3a420305a4d0))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "R5") (unit 1)
         )
@@ -2651,7 +2651,7 @@
     (pin "8" (uuid 1579081c-a3e9-4d5c-a04c-10b0a0751454))
     (pin "9" (uuid 219ec7c3-aa2e-49e3-9f09-aba11fc6346e))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "U2") (unit 1)
         )
@@ -2677,7 +2677,7 @@
     (pin "1" (uuid fd9acafd-1df7-4944-af33-a60a8526596d))
     (pin "2" (uuid 838d1d7c-34d0-48c1-a6c6-11473b982310))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "J2") (unit 1)
         )
@@ -2721,7 +2721,7 @@
     (pin "8" (uuid 230446bb-687b-4c6e-b7f5-021fda9ecb0d))
     (pin "9" (uuid ab468c3b-713b-4273-a62b-05d466c74478))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "U1") (unit 1)
         )
@@ -2752,7 +2752,7 @@
     (pin "A1" (uuid 602b71e4-fd2d-49b8-ab7a-21a9309d0fc9))
     (pin "A2" (uuid 6ee25e4c-ec3a-4526-8904-b581f4a261be))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "K1") (unit 1)
         )
@@ -2777,7 +2777,7 @@
     )
     (pin "1" (uuid 8eaceb28-9c14-4014-8ba1-80b937b4b26e))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR02") (unit 1)
         )
@@ -2805,7 +2805,7 @@
     )
     (pin "1" (uuid 7da14eb3-f284-4cca-8787-bada38584d12))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR02") (unit 1)
         )
@@ -2835,7 +2835,7 @@
     (pin "2" (uuid 62979b18-372c-4452-be39-c21c8b92d739))
     (pin "3" (uuid 4f4dd722-75cf-40dc-9209-e1b97ea1e36f))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "Q1") (unit 1)
         )
@@ -2861,7 +2861,7 @@
     (pin "1" (uuid 3dfa908b-73df-4053-bd1a-00b400f9b7b9))
     (pin "2" (uuid 7d36aa8c-f9af-4f75-8e36-0acfe9b1263d))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "R6") (unit 1)
         )
@@ -2886,7 +2886,7 @@
     )
     (pin "1" (uuid 3c1b46d3-fb26-4ba8-a0c9-899c05588795))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
@@ -2915,7 +2915,7 @@
     (pin "1" (uuid 22592288-102c-48ba-b2f7-dcf7b10865eb))
     (pin "2" (uuid 856801b2-4a06-4b53-bcf8-b3945ac4735b))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/28c50c9a-4c01-429d-8411-b6ccfebde60e"
           (reference "C11") (unit 1)
         )
@@ -2944,7 +2944,7 @@
     (pin "1" (uuid 8fde5eba-5d43-4576-b5d9-ddb92e14c53e))
     (pin "2" (uuid 79ba9630-a440-49e7-8315-2eb162d7ffe7))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "R4") (unit 1)
         )
@@ -2969,7 +2969,7 @@
     )
     (pin "1" (uuid 1cf3ca97-2c70-47fa-bef7-7948a9243cb0))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
@@ -3002,7 +3002,7 @@
     (pin "5" (uuid 74db6c5d-3e62-455a-ad17-87629bc436fb))
     (pin "6" (uuid 2860b434-a53a-4547-a16a-01cb0b4e9587))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "J1") (unit 1)
         )
@@ -3028,7 +3028,7 @@
     (pin "1" (uuid 8385a444-52a3-47d7-9340-0b475208bac8))
     (pin "2" (uuid 8d550a92-fc78-4d70-93c8-9e03df01c908))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "R3") (unit 1)
         )
@@ -3053,7 +3053,7 @@
     )
     (pin "1" (uuid d07338c5-ab69-4e43-a93c-dacc2ec95b6a))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR01") (unit 1)
         )
@@ -3082,7 +3082,7 @@
     (pin "1" (uuid 47b12598-e5a5-4cb6-89aa-4e00e549ca55))
     (pin "2" (uuid 8644e4ea-dfa7-48bd-bf1c-933fa2fb8c0e))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/28c50c9a-4c01-429d-8411-b6ccfebde60e"
           (reference "C11") (unit 1)
         )
@@ -3111,7 +3111,7 @@
     (pin "1" (uuid 975c7239-e9fc-48b1-9bbe-a788abe235db))
     (pin "2" (uuid 1dfd31a5-2754-4816-8a4a-12956f56216d))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/28c50c9a-4c01-429d-8411-b6ccfebde60e"
           (reference "C11") (unit 1)
         )
@@ -3140,7 +3140,7 @@
     (pin "1" (uuid 85d600eb-7c58-4d3c-a7d8-c16158fd38f9))
     (pin "2" (uuid aa4362c0-8f57-4f6a-aceb-2b71114e67a6))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "R17") (unit 1)
         )
@@ -3166,7 +3166,7 @@
     (pin "1" (uuid 9c8dcb06-7858-402b-bab7-818cbeb03696))
     (pin "2" (uuid 4cf52a34-1f31-43bd-a04f-2157cbc585bf))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051/46935075-d583-487e-b60b-a66eebbbc0d0"
           (reference "R11") (unit 1)
         )
@@ -3191,7 +3191,7 @@
     )
     (pin "1" (uuid 9348cfbe-e55b-489f-bc1e-2d8ef2664c02))
     (instances
-      (project "RemoteOutlet"
+      (project "lightlink"
         (path "/7efd258b-cb88-4de5-af54-e5be8dd27051"
           (reference "#PWR03") (unit 1)
         )
