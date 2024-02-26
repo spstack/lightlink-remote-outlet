@@ -122,6 +122,12 @@ void init_GPIOs(void)
     // Setup outlet control pin as output
     LOAD0_TRIS = 0;
 
+    // Set channel select pins to input
+    CHAN_SEL0_TRIS = 1;
+    CHAN_SEL1_TRIS = 1;
+    CHAN_SEL2_TRIS = 1;
+    CHAN_SEL3_TRIS = 1;
+
     // Set button pin to input
     BUTTON_TRIS = 1;
     

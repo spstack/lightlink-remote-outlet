@@ -38,6 +38,10 @@ void main(void)
     //enable interrupts
     enable_interrupts();
 
+    // Wait to ensure power stabilizes before continuing
+    timer_wait_ms(INIT_TIME_WAIT_MS);
+    CLRWDT();
+
     // Switch the attached outlet on right after power is applied
     switch_load(LOAD_ID_OUTLET_0, SWITCH_ON);
 
@@ -66,7 +70,7 @@ void main(void)
     enable_pli_int();
 
     // Indicate aliveness by flashing DEBUG LED
-    LED_resetIndication();
+    // LED_resetIndication();
     
     while (1)
     {
@@ -205,7 +209,6 @@ bool button_is_pressed(void)
 uint8_t read_channel_code_input(void)
 {
     // Return the settings on the DIP switch represented as a bitfield
-    // return ((CHAN_SEL3_PIN << 3) | (CHAN_SEL2_PIN << 2) | (CHAN_SEL1_PIN << 1) | (CHAN_SEL0_PIN));
-    return ((CHAN_SEL1_PIN << 1) | (CHAN_SEL0_PIN));
+    return ((CHAN_SEL3_PIN << 3) | (CHAN_SEL2_PIN << 2) | (CHAN_SEL1_PIN << 1) | (CHAN_SEL0_PIN));
 }
 

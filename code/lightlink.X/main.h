@@ -56,6 +56,7 @@ extern uint32_t SYSTEM_TICKS;
 #define NUM_INITIAL_RETRIES     (3)     ///< Number of times to send an initial 
 #define WAKEUP_POLL_PERIOD_MS   (2000)  ///< Average number of ms to wait before sending a power on message to other endpoint. Some random jitter will be added to this to reduce chance of message collision
                                         /// The min value here is the time it takes to send a message (~5ms)
+#define INIT_TIME_WAIT_MS       (50)    ///< Number of ms to wait after poweron before proceeding w/ initialization. This is to ensure power is stable          
 
 //-------------------------------------------------------------------------
 // ERROR CODES
