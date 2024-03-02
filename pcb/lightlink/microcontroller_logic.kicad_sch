@@ -2516,7 +2516,7 @@
     (property "Value" "SW_DIP_x04" (at 233.68 132.08 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Package_DIP:DIP-8_W7.62mm" (at 233.68 142.24 0)
+    (property "Footprint" "switches_sps:DIP-8_SW_Horiz_Werth" (at 233.68 142.24 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 233.68 142.24 0)
