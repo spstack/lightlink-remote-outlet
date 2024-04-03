@@ -70,6 +70,14 @@ uint8_t RFM69_get_rf_int_val(void)
     return RF_INT_PIN;
 }
 
+/**
+ * @brief Function to pet watchdog within RFM library
+*/
+void RFM69_pet_watchdog(void)
+{
+    CLRWDT();
+}
+
 
 //-------------------------------------------------------------------------
 // FUNCTIONS
@@ -150,20 +158,29 @@ void RFM69_init(uint8_t freqBand, uint16_t nodeID, uint8_t networkID)
     {
         if (timer_has_time_elapsed(initStartTime, RFM69_INIT_TIMEOUT_MS))
         {
+            initStartTime = timer_get_ticks();
             LED_blinkErrorCode(ERROR_RF_INIT);
             RFM69_reset();
         }
 
+        // Pet watchdog while we do this
+        RFM69_pet_watchdog();
+
         RFM69_writeReg(REG_SYNCVALUE1, 0xAA);
     } while (RFM69_readReg(REG_SYNCVALUE1) != 0xAA);
-    
+
+    initStartTime = timer_get_ticks();
     do
     {
         if (timer_has_time_elapsed(initStartTime, RFM69_INIT_TIMEOUT_MS))
         {
+            initStartTime = timer_get_ticks();
             LED_blinkErrorCode(ERROR_RF_INIT);
             RFM69_reset();
         }
+
+        // Pet watchdog while init is happening
+        RFM69_pet_watchdog();
         
         RFM69_writeReg(REG_SYNCVALUE2, 0x55);
     } while (RFM69_readReg(REG_SYNCVALUE2) != 0x55);

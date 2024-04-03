@@ -200,7 +200,6 @@ void LED_blinkErrorCode(uint8_t pattern)
 
     uart_send_err_code(pattern);
     CLRWDT();
-    return;
 
     //wait 1 second off to indicate start of pattern
     DEBUG_LED_PIN = 0;

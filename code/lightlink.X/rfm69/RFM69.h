@@ -40,7 +40,7 @@ extern "C" {
 #define RFM69_SEND_TIMEOUT_MS   50 // max time to wait for send complete interrupt (max packet size 66B / bitrate (4.8kbps) = 110ms plus some buffer)
 #define RFM69_ACK_RX_TIMEOUT_MS 50 //max time to wait for an ack
 #define RFM69_MAX_TX_RETRIES    3
-#define RFM69_INIT_TIMEOUT_MS   3000 // number of milliseconds to wait for response from module before declaring failure during initialization
+#define RFM69_INIT_TIMEOUT_MS   500 // number of milliseconds to wait for response from module before declaring failure during initialization
 
 // Network IDs
 #define RFM69_DEFAULT_NETWORK_ID  (0x55)  ///< Default network ID to be used by remote
@@ -76,26 +76,13 @@ typedef struct _rfm69_buffer_t {
 
 
 
-// ==== BUFFER FUNCTIONS ===
-// #define MAX_BUFFSIZE 25
-// #define BUFF_FULL 1
-// #define BUFF_EMPTY 0xFF
-// #define BUFF_NORMAL 0
-    
-// //Buffer used for transmitting and receiving data
-// typedef struct _BUFFER {
-//   unsigned int head;
-//   unsigned int tail;
-//   unsigned char data[MAX_BUFFSIZE];
-// } BUFFER;
-
-
 // ==== FUNCTIONS ====
 
 // Functions that should be populated depending on system
 void RFM69_setup_pins(void);
 void RFM69_set_chipselect(uint8_t level);
 void RFM69_set_reset_pin(uint8_t level);
+void RFM69_pet_watchdog(void);
 
 // Public API functions
 void RFM69_init(uint8_t freqBand, uint16_t nodeID, uint8_t networkID);

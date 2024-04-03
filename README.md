@@ -7,4 +7,8 @@ Basically, you can change the location of an outlet that is already hooked up to
 transceiver so there's no wifi/bluetooth involved. You just select the channel you want to control and if any device on 
 that channel is powered on or off, all of the devices on that channel will follow it.
 
-![Light Link Example](./images/light_link_model_exploded.jpg)
+![Light Link Enclosures](./images/lightlink_completed_enclosures.jpg)
+![Light Link Completed1](./images/lightlint_completed_1.jpg)
+
+The device uses a PIC microcontroller in conjunction with the HopeRF RFM69HCW transceiver. The board was designed in KiCAD.
+

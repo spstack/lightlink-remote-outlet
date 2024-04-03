@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="E">
   <design>
-    <source>C:\Users\Scott\Dropbox\my documents\Projects_and_Misc_Tech\1_PROJECTS\RF_OutletRemote\RemoteOutlet\RemoteOutlet.kicad_sch</source>
-    <date>1/25/2024 11:15:09 PM</date>
+    <source>C:\Users\Scott\Dropbox\my documents\Projects_and_Misc_Tech\1_PROJECTS\LightLink\pcb\lightlink\lightlink.kicad_sch</source>
+    <date>3/2/2024 5:28:51 PM</date>
     <tool>Eeschema 7.0.8</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -10,7 +10,7 @@
         <company/>
         <rev/>
         <date/>
-        <source>RemoteOutlet.kicad_sch</source>
+        <source>lightlink.kicad_sch</source>
         <comment number="1" value=""/>
         <comment number="2" value=""/>
         <comment number="3" value=""/>
@@ -98,10 +98,10 @@
       <footprint>LED_THT:LED_D3.0mm</footprint>
       <fields>
         <field name="ForwardVoltageDrop">1.8V</field>
-        <field name="Part">HLMP1700</field>
+        <field name="PN">HLMP1700</field>
       </fields>
       <libsource lib="Device" part="LED" description="Light emitting diode"/>
-      <property name="Part" value="HLMP1700"/>
+      <property name="PN" value="HLMP1700"/>
       <property name="ForwardVoltageDrop" value="1.8V"/>
       <property name="Sheetname" value="microcontroller_logic"/>
       <property name="Sheetfile" value="microcontroller_logic.kicad_sch"/>
@@ -261,8 +261,12 @@
     </comp>
     <comp ref="SW1">
       <value>SW_DIP_x04</value>
-      <footprint>Package_DIP:DIP-8_W7.62mm</footprint>
+      <footprint>switches_sps:DIP-8_SW_Horiz_Werth</footprint>
+      <fields>
+        <field name="PN">418217270904A</field>
+      </fields>
       <libsource lib="Switch" part="SW_DIP_x04" description="4x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"/>
+      <property name="PN" value="418217270904A"/>
       <property name="Sheetname" value="microcontroller_logic"/>
       <property name="Sheetfile" value="microcontroller_logic.kicad_sch"/>
       <property name="ki_description" value="4x DIP Switch, Single Pole Single Throw (SPST) switch, small symbol"/>
@@ -274,7 +278,11 @@
       <value>SW_MEC_5G_2LED</value>
       <footprint>switches_sps:switch_right_angle_228DD1S1AAFAMSC</footprint>
       <datasheet>http://www.apem.com/int/index.php?controller=attachment&amp;id_attachment=488</datasheet>
+      <fields>
+        <field name="PN">228DD1S1AAFAMSC</field>
+      </fields>
       <libsource lib="Switch" part="SW_MEC_5G_2LED" description="MEC 5G single pole normally-open illuminated tactile switch with two LEDs"/>
+      <property name="PN" value="228DD1S1AAFAMSC"/>
       <property name="Sheetname" value="microcontroller_logic"/>
       <property name="Sheetfile" value="microcontroller_logic.kicad_sch"/>
       <property name="ki_description" value="MEC 5G single pole normally-open illuminated tactile switch with two LEDs"/>
@@ -330,7 +338,7 @@
     </comp>
     <comp ref="C3">
       <value>10uF</value>
-      <footprint>Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder</footprint>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
       <fields>
         <field name="Voltage">35V</field>
       </fields>
@@ -360,7 +368,7 @@
     </comp>
     <comp ref="C5">
       <value>10uF</value>
-      <footprint>Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder</footprint>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
       <libsource lib="Device" part="C_Polarized_US" description="Polarized capacitor, US symbol"/>
       <property name="Sheetname" value="power"/>
       <property name="Sheetfile" value="power.kicad_sch"/>
@@ -461,6 +469,17 @@
       <sheetpath names="/power/" tstamps="/28c50c9a-4c01-429d-8411-b6ccfebde60e/"/>
       <tstamps>a88f6c8c-e260-40a3-927a-06af84f56526</tstamps>
     </comp>
+    <comp ref="C17">
+      <value>0.1uF</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <property name="Sheetname" value="power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_description" value="Unpolarized capacitor, small symbol"/>
+      <property name="ki_keywords" value="capacitor cap"/>
+      <sheetpath names="/power/" tstamps="/28c50c9a-4c01-429d-8411-b6ccfebde60e/"/>
+      <tstamps>9f623631-6cec-41c4-90f7-729ec684823b</tstamps>
+    </comp>
     <comp ref="D1">
       <value>D_Bridge_+A-A</value>
       <footprint>q_packages_sps:SOPA-4</footprint>
@@ -478,10 +497,12 @@
       <fields>
         <field name="Sim.Device">D</field>
         <field name="Sim.Pins">1=K 2=A</field>
+        <field name="part ">ES1J-LTP</field>
       </fields>
       <libsource lib="Device" part="D" description="Diode"/>
       <property name="Sim.Device" value="D"/>
       <property name="Sim.Pins" value="1=K 2=A"/>
+      <property name="part " value="ES1J-LTP"/>
       <property name="Sheetname" value="power"/>
       <property name="Sheetfile" value="power.kicad_sch"/>
       <property name="ki_description" value="Diode"/>
@@ -507,7 +528,7 @@
       <tstamps>97c6f2a1-141f-4b9b-97c8-126373eaaf30</tstamps>
     </comp>
     <comp ref="D5">
-      <value>2.7V</value>
+      <value>MM3Z2V7B 2.7V</value>
       <footprint>Diode_SMD:D_SOD-323_HandSoldering</footprint>
       <datasheet>https://www.onsemi.com/pdf/datasheet/mm3z9v1b-d.pdf</datasheet>
       <fields>
@@ -592,6 +613,17 @@
       <sheetpath names="/power/" tstamps="/28c50c9a-4c01-429d-8411-b6ccfebde60e/"/>
       <tstamps>c9b81b25-0a0c-4d7f-bb1b-313dc28e01d5</tstamps>
     </comp>
+    <comp ref="R2">
+      <value>31.6k</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <property name="Sheetname" value="power"/>
+      <property name="Sheetfile" value="power.kicad_sch"/>
+      <property name="ki_description" value="Resistor, US symbol"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <sheetpath names="/power/" tstamps="/28c50c9a-4c01-429d-8411-b6ccfebde60e/"/>
+      <tstamps>a853425b-9b7c-4fe1-9f18-5543faf7e3f2</tstamps>
+    </comp>
     <comp ref="R7">
       <value>13k</value>
       <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
@@ -615,15 +647,19 @@
       <tstamps>c20a6f8a-0b3b-43b3-bfab-2a096025be6d</tstamps>
     </comp>
     <comp ref="R9">
-      <value>10 - Fusible</value>
+      <value>30</value>
       <footprint>Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical</footprint>
+      <fields>
+        <field name="Power">1W</field>
+      </fields>
       <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <property name="Power" value="1W"/>
       <property name="Sheetname" value="power"/>
       <property name="Sheetfile" value="power.kicad_sch"/>
       <property name="ki_description" value="Resistor, US symbol"/>
       <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/power/" tstamps="/28c50c9a-4c01-429d-8411-b6ccfebde60e/"/>
-      <tstamps>fd43f263-bd59-4dbe-b72e-b6d4744951cf</tstamps>
+      <tstamps>81c5aa79-191f-4108-b2e4-b395e840e9a6</tstamps>
     </comp>
     <comp ref="R10">
       <value>3.3k</value>
@@ -656,18 +692,7 @@
       <property name="ki_description" value="Resistor, US symbol"/>
       <property name="ki_keywords" value="R res resistor"/>
       <sheetpath names="/power/" tstamps="/28c50c9a-4c01-429d-8411-b6ccfebde60e/"/>
-      <tstamps>a3551d94-5919-4337-a329-0599cc457310</tstamps>
-    </comp>
-    <comp ref="R15">
-      <value>31.6k</value>
-      <footprint>Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
-      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
-      <property name="Sheetname" value="power"/>
-      <property name="Sheetfile" value="power.kicad_sch"/>
-      <property name="ki_description" value="Resistor, US symbol"/>
-      <property name="ki_keywords" value="R res resistor"/>
-      <sheetpath names="/power/" tstamps="/28c50c9a-4c01-429d-8411-b6ccfebde60e/"/>
-      <tstamps>d2b83970-290d-498c-84de-ba23dc2fc382</tstamps>
+      <tstamps>de474bf9-0818-4405-b76d-f5a974b3b763</tstamps>
     </comp>
     <comp ref="R16">
       <value>1k</value>
@@ -1253,12 +1278,13 @@
       <node ref="C10" pin="1" pintype="passive"/>
       <node ref="C14" pin="2" pintype="passive"/>
       <node ref="C15" pin="2" pintype="passive"/>
+      <node ref="C17" pin="2" pintype="passive"/>
       <node ref="C8" pin="1" pintype="passive"/>
       <node ref="J1" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="L2" pin="2" pinfunction="2" pintype="passive"/>
       <node ref="R1" pin="1" pintype="passive"/>
       <node ref="R12" pin="1" pintype="passive"/>
-      <node ref="R14" pin="1" pintype="passive"/>
+      <node ref="R2" pin="1" pintype="passive"/>
       <node ref="R3" pin="1" pintype="passive"/>
       <node ref="R4" pin="1" pintype="passive"/>
       <node ref="R5" pin="1" pintype="passive"/>
@@ -1357,8 +1383,8 @@
       <node ref="U1" pin="4" pinfunction="RA3/~{MCLR}/VPP" pintype="bidirectional"/>
     </net>
     <net code="20" name="/power/3v3_FB">
-      <node ref="R14" pin="2" pintype="passive"/>
-      <node ref="R15" pin="1" pintype="passive"/>
+      <node ref="R14" pin="1" pintype="passive"/>
+      <node ref="R2" pin="2" pintype="passive"/>
       <node ref="U4" pin="4" pinfunction="FB" pintype="input"/>
     </net>
     <net code="21" name="/power/3v3_SW">
@@ -1407,7 +1433,6 @@
     <net code="28" name="/power/live_fbr_in">
       <node ref="D1" pin="4" pintype="passive"/>
       <node ref="R9" pin="2" pintype="passive"/>
-      <node ref="RV1" pin="1" pintype="passive"/>
     </net>
     <net code="29" name="GND">
       <node ref="C1" pin="2" pintype="passive"/>
@@ -1418,6 +1443,7 @@
       <node ref="C14" pin="1" pintype="passive"/>
       <node ref="C15" pin="1" pintype="passive"/>
       <node ref="C16" pin="1" pintype="passive"/>
+      <node ref="C17" pin="1" pintype="passive"/>
       <node ref="C4" pin="2" pintype="passive"/>
       <node ref="C5" pin="2" pintype="passive"/>
       <node ref="C6" pin="2" pintype="passive"/>
@@ -1431,7 +1457,7 @@
       <node ref="J2" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="Q1" pin="3" pinfunction="S" pintype="passive"/>
       <node ref="R10" pin="2" pintype="passive"/>
-      <node ref="R15" pin="2" pintype="passive"/>
+      <node ref="R14" pin="2" pintype="passive"/>
       <node ref="R19" pin="2" pintype="passive"/>
       <node ref="SW1" pin="5" pintype="passive"/>
       <node ref="SW1" pin="6" pintype="passive"/>
@@ -1453,6 +1479,7 @@
       <node ref="F1" pin="2" pintype="passive"/>
       <node ref="K1" pin="13" pintype="passive"/>
       <node ref="R9" pin="1" pintype="passive"/>
+      <node ref="RV1" pin="1" pintype="passive"/>
     </net>
     <net code="32" name="LIVE_OUT">
       <node ref="J3" pin="1" pinfunction="AC_P" pintype="power_in"/>
