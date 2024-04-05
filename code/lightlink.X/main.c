@@ -56,11 +56,14 @@ void main(void)
     for (int8_t i = 0; i < NUM_INITIAL_RETRIES; i++) {
         status = send_load_switch_cmd(LOAD_ID_OUTLET_0, SWITCH_ON); 
         if (status != NO_ERROR) {
-            LED_blinkErrorCode(status);
+            log_error(status);
         }
 
         // Wait a random amount of time between 1 and 16 ms before sending again
         timer_wait_ms((uint32_t)rand_lfsr16() & 0xF);
+
+        // Clear the WDT
+        CLRWDT();
     }
 
     // Set the RF module into receive mode by default
@@ -79,9 +82,6 @@ void main(void)
 
         // Check for new commands and process them 
         process_new_commands();
-
-        // If it's time, send a wakeup packet to the other endpoint(s)
-        handle_periodic_msg_send();
 
         // Clear the watchdog timer
         CLRWDT();
@@ -120,7 +120,7 @@ void handle_button_input(void) {
         status = send_load_switch_cmd(LOAD_ID_OUTLET_0, global_data.current_switch_val); 
         if (status != NO_ERROR)
         {
-            LED_blinkErrorCode(status);
+            log_error(status);
         }
 
     }
@@ -146,23 +146,10 @@ void process_new_commands(void) {
     {
         int status = handle_received_command(global_data.rf_receive_buf, received_pkt_size);
         if (status != NO_ERROR) {
-            LED_blinkErrorCode(status);
+            log_error(status);
         }
     }
 }
-
-/**
- * @brief Called from the main function to handle sending periodic wakeup packets
-*/
-void handle_periodic_msg_send(void) {
-    // NOTE: don't do periodic sending... it isn't necessary and messes things up
-    // If it's time to send a new periodic switch update command, do it. Add some jitter to time this is sent
-    // if (timer_has_time_elapsed(global_data.time_last_pwron_sent, WAKEUP_POLL_PERIOD_MS + (rand_lfsr16() & 0x1FF))) {
-    //     send_load_switch_cmd(LOAD_ID_OUTLET_0, global_data.current_switch_val);
-    //     global_data.next_wakeup_time = (uint32_t)(WAKEUP_POLL_PERIOD_MS + (rand_lfsr16() & 0xFF));
-    // }
-}
-
 
 
 // ========== SUPPORT FUNCTIONS ===========

@@ -52,7 +52,8 @@
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
-
+// Random number generator seed
+static uint16_t _rand_seed;
 
 
 /**
@@ -190,15 +191,18 @@ void init_UART(void)
 }
 
 
-//Code to blink our one LED with an error code specified by 'pattern'
-//Each bit in pattern represents a short or long LED pulse.
-// Short pulse = 0
-// Long pulse = 1
-void LED_blinkErrorCode(uint8_t pattern)
+
+/**
+ * @brief Code to blink our one LED with an error code specified by 'pattern'
+ * @details Each bit in pattern represents a short or long LED pulse.
+ * Short pulse = 0
+ * Long pulse = 1
+*/
+void LED_blink_err_code(uint8_t error_code)
 {
     uint8_t i, current_bit;
 
-    uart_send_err_code(pattern);
+    // Clear WDT to ensure it doesn't expire while we do this long operation
     CLRWDT();
 
     //wait 1 second off to indicate start of pattern
@@ -210,7 +214,7 @@ void LED_blinkErrorCode(uint8_t pattern)
     // for each bit in 'pattern' blink a long or short pulse
     for(i = 0; i < 8; i++)
     {
-        current_bit = (pattern >> i) & 0x1;
+        current_bit = (error_code >> i) & 0x1;
         
         // if '1' then long pulse
         if (current_bit)
@@ -240,6 +244,23 @@ void LED_blinkErrorCode(uint8_t pattern)
 }
 
 /**
+ * @brief Log that an error has occurred. This can perform different actions depending on the configuration
+ * @param[in] error_code - the error code to log
+*/
+void log_error(uint8_t error_code)
+{
+
+#if DEBUG_UART_OUT
+    uart_send_err_code(error_code);
+#endif
+
+#if DEBUG_LED_BLINK
+    LED_blink_err_code(error_code);
+#endif
+
+}
+
+/**
  * @brief - blink LEDs in a specific pattern to indicate reset
 */
 void LED_resetIndication(void)
@@ -258,10 +279,10 @@ void LED_resetIndication(void)
 
 
 
-static uint16_t _rand_seed;
 
 /**
  * @brief Get a true random number derived from lower bits of multiple ADC cycles
+ * @note: not implemented at the moment.
 */
 int16_t rand_sample_adc(void) {
     /* commented out for now
@@ -305,7 +326,7 @@ int16_t rand_lfsr16(void) {
 */
 void rand_lfsr_seed(uint16_t seed) {
     if (seed == 0) {
-        LED_blinkErrorCode(ERROR_ZERO_SEED);
+        log_error(ERROR_ZERO_SEED);
         seed = 0xe3; // just choose random number
     }
     _rand_seed = seed;

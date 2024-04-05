@@ -129,7 +129,7 @@ void init_SPI(void)
 //Each bit in pattern represents a short or long LED pulse.
 // Short pulse = 0
 // Long pulse = 1
-void LED_blinkErrorCode(uint8_t pattern)
+void log_error(uint8_t pattern)
 {
     uint8_t i, current_bit;
 
@@ -237,7 +237,7 @@ int16_t rand_lfsr16(void) {
 */
 int32_t rand_lfsr_seed(uint32_t seed) {
     if (seed == 0) {
-        LED_blinkErrorCode(ERROR_ZERO_SEED);
+        log_error(ERROR_ZERO_SEED);
         seed = 0xe3; // just choose random number
     }
     _rand_seed = seed;
