@@ -38,7 +38,7 @@ void timer_wait_ms(uint32_t ms)
 {
     uint32_t startTime = timer_get_ticks();
     
-    while ((timer_get_ticks() - startTime) < ms );
+    while (!timer_has_time_elapsed(startTime, ms));
 }
 
 

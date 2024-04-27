@@ -7,6 +7,7 @@
 #include "main.h"
 #include "timer.h"
 #include "uart.h"
+#include "logging.h"
 
 // CONFIG1
 #pragma config FEXTOSC = OFF    // External Oscillator Selection bits (Oscillator not enabled)
@@ -193,94 +194,6 @@ void init_UART(void)
 
 
 /**
- * @brief Code to blink our one LED with an error code specified by 'pattern'
- * @details Each bit in pattern represents a short or long LED pulse.
- * Short pulse = 0
- * Long pulse = 1
-*/
-void LED_blink_err_code(uint8_t error_code)
-{
-    uint8_t i, current_bit;
-
-    // Clear WDT to ensure it doesn't expire while we do this long operation
-    CLRWDT();
-
-    //wait 1 second off to indicate start of pattern
-    DEBUG_LED_PIN = 0;
-    timer_wait_ms(1000);
-
-    CLRWDT();
-    
-    // for each bit in 'pattern' blink a long or short pulse
-    for(i = 0; i < 8; i++)
-    {
-        current_bit = (error_code >> i) & 0x1;
-        
-        // if '1' then long pulse
-        if (current_bit)
-        {
-            DEBUG_LED_PIN = 1;
-            timer_wait_ms(300);
-            DEBUG_LED_PIN = 0;
-            timer_wait_ms(300);
-        }
-        else
-        {
-            DEBUG_LED_PIN = 1;
-            timer_wait_ms(100);
-            DEBUG_LED_PIN = 0;
-            timer_wait_ms(500);   
-        }
-
-        CLRWDT();
-    }
-
-    
-    DEBUG_LED_PIN = 0;
-    timer_wait_ms(1000);
-    DEBUG_LED_PIN = 1;
-
-    CLRWDT();
-}
-
-/**
- * @brief Log that an error has occurred. This can perform different actions depending on the configuration
- * @param[in] error_code - the error code to log
-*/
-void log_error(uint8_t error_code)
-{
-
-#if DEBUG_UART_OUT
-    uart_send_err_code(error_code);
-#endif
-
-#if DEBUG_LED_BLINK
-    LED_blink_err_code(error_code);
-#endif
-
-}
-
-/**
- * @brief - blink LEDs in a specific pattern to indicate reset
-*/
-void LED_resetIndication(void)
-{
-    // Flash LED to indicate reset
-    DEBUG_LED_PIN = 1;
-    timer_wait_ms(250);
-    DEBUG_LED_PIN = 0;
-    timer_wait_ms(250);
-    DEBUG_LED_PIN = 1;
-    timer_wait_ms(250);
-    DEBUG_LED_PIN = 0;
-    timer_wait_ms(250);
-    DEBUG_LED_PIN = 1;
-}
-
-
-
-
-/**
  * @brief Get a true random number derived from lower bits of multiple ADC cycles
  * @note: not implemented at the moment.
 */
@@ -326,7 +239,7 @@ int16_t rand_lfsr16(void) {
 */
 void rand_lfsr_seed(uint16_t seed) {
     if (seed == 0) {
-        log_error(ERROR_ZERO_SEED);
+        log_error(ERROR_LEVEL, ERROR_ZERO_SEED);
         seed = 0xe3; // just choose random number
     }
     _rand_seed = seed;

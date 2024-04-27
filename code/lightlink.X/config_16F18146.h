@@ -69,10 +69,6 @@ void init_SPI(void);
 void init_UART(void);
 void init_timers(void);
 
-void log_error(uint8_t error_code);
-void LED_blink_error_code(uint8_t error_code);
-void LED_resetIndication(void);
-
 // Random number generation 
 int16_t rand_sample_adc(void);
 void rand_lfsr_seed(uint16_t seed);

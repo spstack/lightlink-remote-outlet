@@ -11,6 +11,7 @@
 #include "../main.h"
 #include "../timer.h"
 #include "../config.h"
+#include "../logging.h"
 #include "../spi.h"
 #include "RFM69.h"
 #include "RFM69registers.h"
@@ -159,7 +160,7 @@ void RFM69_init(uint8_t freqBand, uint16_t nodeID, uint8_t networkID)
         if (timer_has_time_elapsed(initStartTime, RFM69_INIT_TIMEOUT_MS))
         {
             initStartTime = timer_get_ticks();
-            log_error(ERROR_RF_INIT);
+            log_error(CRITICAL_LEVEL, ERROR_RF_INIT);
             RFM69_reset();
         }
 
@@ -175,7 +176,7 @@ void RFM69_init(uint8_t freqBand, uint16_t nodeID, uint8_t networkID)
         if (timer_has_time_elapsed(initStartTime, RFM69_INIT_TIMEOUT_MS))
         {
             initStartTime = timer_get_ticks();
-            log_error(ERROR_RF_INIT);
+            log_error(CRITICAL_LEVEL, ERROR_RF_INIT);
             RFM69_reset();
         }
 
@@ -414,7 +415,7 @@ bool RFM69_sendFrame(uint8_t toAddress, uint8_t *dataToSend, uint8_t dataLength,
     {
         if (timer_has_time_elapsed(startTime, RFM69_SEND_TIMEOUT_MS))
         {
-            log_error(ERROR_RF_SEND_TIMEOUT);
+            log_error(ERROR_LEVEL, ERROR_RF_SEND_TIMEOUT);
             RFM69_writeReg(REG_DIOMAPPING1, RF_DIOMAPPING1_DIO0_01); // set DIO0 to "PAYLOADREADY" in receive mode
             RFM69_setMode(startMode); //set mode back to what it was at the start
             return false;
@@ -449,7 +450,7 @@ bool RFM69_sendPacket(uint8_t toAddress, uint8_t *dataToSend, uint8_t dataLength
     {
         // Couldn't determine if clear to send
         // attempting to send anyway...
-        log_error(ERROR_RF_NOT_CTS);
+        log_error(INFO_LEVEL, ERROR_RF_NOT_CTS);
     }
     
     _ack_received = false;
@@ -483,6 +484,7 @@ bool RFM69_sendPacket(uint8_t toAddress, uint8_t *dataToSend, uint8_t dataLength
         retries++;
     }
     
+    log_error(DEBUG_LEVEL, ERROR_RF_NO_ACK);
     return false;
 }
 
@@ -650,7 +652,7 @@ bool RFM69_checkForRxData(void)
     // Check for overrun
     if (_rx_buffer.overrun)
     {
-        log_error(ERROR_RF_RX_OVERFLOW);
+        log_error(ERROR_LEVEL, ERROR_RF_RX_OVERFLOW);
     }
     
     return have_packet;

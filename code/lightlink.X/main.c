@@ -7,6 +7,7 @@
 #include <xc.h>
 #include "main.h"
 #include "config.h"
+#include "logging.h"
 #include "rfm69/RFM69.h"
 #include "timer.h"
 #include "remote_actions.h"
@@ -56,7 +57,7 @@ void main(void)
     for (int8_t i = 0; i < NUM_INITIAL_RETRIES; i++) {
         status = send_load_switch_cmd(LOAD_ID_OUTLET_0, SWITCH_ON); 
         if (status != NO_ERROR) {
-            log_error(status);
+            log_error(DEBUG_LEVEL, status);
         }
 
         // Wait a random amount of time between 1 and 16 ms before sending again
@@ -120,7 +121,7 @@ void handle_button_input(void) {
         status = send_load_switch_cmd(LOAD_ID_OUTLET_0, global_data.current_switch_val); 
         if (status != NO_ERROR)
         {
-            log_error(status);
+            log_error(DEBUG_LEVEL, status);
         }
 
     }
@@ -146,7 +147,7 @@ void process_new_commands(void) {
     {
         int status = handle_received_command(global_data.rf_receive_buf, received_pkt_size);
         if (status != NO_ERROR) {
-            log_error(status);
+            log_error(INFO_LEVEL, status);
         }
     }
 }

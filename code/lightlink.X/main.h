@@ -20,7 +20,7 @@ extern "C" {
 // Build Configuration
 //------------------------------------------------------------------------
 // #define DEBUG_UART_OUT
-// #define DEBUG_BLINK_LED
+#define DEBUG_LED_BLINK
     
     
 //-------------------------------------------------------------------------
@@ -67,6 +67,14 @@ extern uint32_t SYSTEM_TICKS;
 //-------------------------------------------------------------------------
 // ERROR CODES
 //------------------------------------------------------------------------
+typedef enum _error_level_e {
+    DEBUG_LEVEL = 0,
+    INFO_LEVEL,
+    ERROR_LEVEL,
+    CRITICAL_LEVEL,
+    NO_LOGGING,         // Always the last entry
+} error_level_e;
+
 #define NO_ERROR                0
 #define ERROR_NULL_PTR          0x01    ///< NULL pointer passed to function
 #define ERROR_INV_BUF_SIZE      0x02    ///< Invalid buffer size detected
@@ -85,16 +93,6 @@ extern uint32_t SYSTEM_TICKS;
 // random num generator 
 #define ERROR_ZERO_SEED         0x40    ///< Tried to seed the randomizer with a zero value
 
-
-//-------------------------------------------------------------------------
-// LED Blink Codes
-//------------------------------------------------------------------------
-#define ERR_RF_MODULE_INIT_TIMEOUT 0x0
-#define ERR_RF_MODULE_SEND_TIMEOUT 0x1
-#define ERR_RF_MODULE_COULD_NOT_GET_ACK 0x2
-#define ERR_RF_MODULE_DATA_RECEIVED 0x3
-
-#define SEND_SUCCESS_PATTERN 0xF
 
 
 //-------------------------------------------------------------------------
