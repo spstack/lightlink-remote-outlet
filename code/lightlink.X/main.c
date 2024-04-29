@@ -99,6 +99,8 @@ void initialize_global_data(void) {
     global_data.poweron_msg_received = false;
     global_data.current_channel = 0;
     global_data.current_switch_val = SWITCH_OFF;
+
+    log_set_log_level(DEFAULT_LOG_LEVEL);
 }
 
 

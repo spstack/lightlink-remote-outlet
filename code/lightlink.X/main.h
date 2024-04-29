@@ -64,9 +64,11 @@ extern uint32_t SYSTEM_TICKS;
                                         /// The min value here is the time it takes to send a message (~5ms)
 #define INIT_TIME_WAIT_MS       (50)    ///< Number of ms to wait after poweron before proceeding w/ initialization. This is to ensure power is stable          
 
+
 //-------------------------------------------------------------------------
-// ERROR CODES
+// Error Levels
 //------------------------------------------------------------------------
+
 typedef enum _error_level_e {
     DEBUG_LEVEL = 0,
     INFO_LEVEL,
@@ -74,6 +76,12 @@ typedef enum _error_level_e {
     CRITICAL_LEVEL,
     NO_LOGGING,         // Always the last entry
 } error_level_e;
+
+#define DEFAULT_LOG_LEVEL       (ERROR_LEVEL)   ///< The default log level that will be used
+
+//-------------------------------------------------------------------------
+// ERROR CODES
+//------------------------------------------------------------------------
 
 #define NO_ERROR                0
 #define ERROR_NULL_PTR          0x01    ///< NULL pointer passed to function
