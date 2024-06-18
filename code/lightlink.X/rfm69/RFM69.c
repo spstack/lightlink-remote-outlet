@@ -529,8 +529,9 @@ bool RFM69_receivePacketInternal(void)
 
         // Sanity check packet length
         if (packetLength > RF69_MAX_DATA_LEN) {
-            RFM69_set_chipselect(1);
-            return false;
+            // set length to zero so rx_buffer isn't populated, but continue to clear the FIFO
+            packetLength = 0;
+            targetId = RFM69_INVALID_NODE_ADDR;
         }
         
         // Read the body of the packet.
@@ -609,17 +610,28 @@ bool RFM69_receivePacket(uint8_t *buf, uint8_t *rcvd_pkt_size, uint16_t buf_size
     }
 
     // check for data, and transfer it to caller if there is
-    if ((RFM69_checkForRxData()) && (buf_size >= _rx_buffer.length))
+    if (RFM69_checkForRxData())
     {
-        *rcvd_pkt_size = _rx_buffer.length;
-        for (i = 0; i < _rx_buffer.length; i++)
+        // Ensure buffer is big enough
+        if (buf_size >= _rx_buffer.length)
         {
-            buf[i] = _rx_buffer.data[i];
-        }
+            *rcvd_pkt_size = _rx_buffer.length;
+            for (i = 0; i < _rx_buffer.length; i++)
+            {
+                buf[i] = _rx_buffer.data[i];
+            }
 
-        // Reset the buffer
-        RFM69_resetRxBuf();
-        return true;
+            // Reset the buffer
+            RFM69_resetRxBuf();
+            return true;
+        }
+        else
+        {
+            // If specified buffer isn't big enough just clear everything and return false
+            RFM69_resetRxBuf();
+            return false;
+
+        }
     }
         
     return false;
@@ -652,6 +664,7 @@ bool RFM69_checkForRxData(void)
     // Check for overrun
     if (_rx_buffer.overrun)
     {
+        // Indicate error, but don't need to actually clear anything because newest packet has overwritten old one
         log_error(ERROR_LEVEL, ERROR_RF_RX_OVERFLOW);
     }
     
@@ -685,40 +698,28 @@ uint8_t RFM69_getNodeId(void)
 */
 void RFM69_setNodeId(uint8_t nodeID)
 {
+    if (nodeID == RFM69_INVALID_NODE_ADDR)
+    {
+        return;
+    }
+
     RFM69_writeReg(REG_NODEADRS, nodeID);
     _cur_node_id = nodeID;
 }
 
-
-//FUNCTIONS TO IMPLEMENT CIRCULAR BUFFER
-/*int BUFF_push(BUFFER* buff, char c) {
-  if((buff->tail + 1) % MAX_BUFFSIZE == buff->head) {
-    return BUFF_FULL;
-  } else {
-    buff->data[buff->tail] = c;
-    buff->tail = (buff->tail + 1) % MAX_BUFFSIZE;
-  }
-  return BUFF_NORMAL;
+/**
+ * @brief Perform a quick register read to ensure the device is alive. Return true if so
+ */
+bool RFM69_isAlive(void)
+{
+    if (RFM69_readReg(REG_SYNCVALUE1) == 0xAA)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-char BUFF_pop(BUFFER* buff) {
-  char c = -1;
-  if(buff->head == buff->tail) {
-    return BUFF_EMPTY;
-  } else {
-    c = buff->data[buff->head];
-    buff->head = (buff->head + 1) % MAX_BUFFSIZE;
-  }
-  return c;
-}
 
-int BUFF_status(BUFFER* buff) {
-  if(buff->head == buff->tail) {
-    return BUFF_EMPTY;
-  } else if ((buff->tail + 1) % MAX_BUFFSIZE == buff->head) {
-    return BUFF_FULL;
-  } else {
-    return BUFF_NORMAL;
-  }
-}
-*/

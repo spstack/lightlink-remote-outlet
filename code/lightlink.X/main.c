@@ -23,11 +23,12 @@ void handle_button_input(void);
 void process_new_commands(void);
 void initialize_global_data(void);
 void handle_periodic_msg_send(void);
+bool is_hw_ok(void);
 
 
 // ========== MAIN FUNCTION ===========
 void main(void)
-{   
+{
     int status = NO_ERROR;
 
     // Init global data structure
@@ -84,8 +85,11 @@ void main(void)
         // Check for new commands and process them 
         process_new_commands();
 
-        // Clear the watchdog timer
-        CLRWDT();
+        // Clear the watchdog timer only if hardware is functional
+        if (is_hw_ok())
+        {
+            CLRWDT();
+        }
     }
 }
 
@@ -202,3 +206,21 @@ uint8_t read_channel_code_input(void)
     return ((CHAN_SEL3_PIN << 3) | (CHAN_SEL2_PIN << 2) | (CHAN_SEL1_PIN << 1) | (CHAN_SEL0_PIN));
 }
 
+
+/**
+ * @brief Perform a check of the hardware to ensure everything's alright
+ */
+bool is_hw_ok(void)
+{
+    // Check the RFM module
+    if (!RFM69_isAlive())
+    {
+        // Attempt reset/reinit and return false to indicate something's wrong
+        log_error(ERROR_LEVEL, ERROR_RF_NOT_RESP);
+        RFM69_init(RF69_915MHZ, 0, RFM69_DEFAULT_NETWORK_ID);
+        return false;
+    }
+
+    // All hw ok
+    return true;
+}

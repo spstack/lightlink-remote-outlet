@@ -93,6 +93,7 @@ typedef enum _error_level_e {
 #define ERROR_RF_RX_OVERFLOW    0x13    ///< We received a packet from remote before the existing packet could be read from internal buffer
 #define ERROR_RF_SEND_TIMEOUT   0x14    ///< Did not receive a transmit done interrupt after sending packet within allowed time frame
 #define ERROR_RF_NOT_CTS        0x15    ///< When trying to send a packet, timed out waiting for it to be clear to send
+#define ERROR_RF_NOT_RESP       0x16    ///< RF module is not responding to simple register read
 // remote cmd error codes
 #define ERROR_CMD_MAGIC_NUM     0x20    ///< Wrong magic number detected in received command
 #define ERROR_INVALID_OPCODE    0x21    ///< Invalid command opcode

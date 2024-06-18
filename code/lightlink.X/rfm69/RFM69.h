@@ -43,8 +43,9 @@ extern "C" {
 #define RFM69_INIT_TIMEOUT_MS   500 // number of milliseconds to wait for response from module before declaring failure during initialization
 
 // Network IDs
-#define RFM69_DEFAULT_NETWORK_ID  (0x55)  ///< Default network ID to be used by remote
-#define RF69_BROADCAST_ADDR       0
+#define RFM69_DEFAULT_NETWORK_ID    (0x55)  ///< Default network ID to be used by remote
+#define RF69_BROADCAST_ADDR         0
+#define RFM69_INVALID_NODE_ADDR     0xFE    ///< Invalid target/node ID used internally
 
 // Packet defines
 #define RF69_MAX_DATA_LEN       61 // to take advantage of the built in AES/CRC we want to limit the frame size to the internal FIFO size (66 bytes - 3 bytes overhead - 2 bytes crc)
@@ -71,7 +72,7 @@ typedef struct _rfm69_buffer_t {
     uint8_t data[RF69_MAX_DATA_LEN];    ///< actual packet data
     uint8_t length;                     ///< length of the packet in 'data' in bytes
     bool has_data;                      ///< indicates whether the buffer has any data in it
-    bool overrun;                       ///< indicates whether 
+    bool overrun;                       ///< indicates whether the rx buffer has been overrun and a packet has been dropped. This is just a notification, the buffer will still contain the most recent packet
 } rfm69_buffer_t;
 
 
@@ -98,6 +99,7 @@ bool RFM69_receivePacket(uint8_t *buf, uint8_t *rcvd_pkt_size, uint16_t buf_size
 void RFM69_reset(void);
 uint8_t RFM69_getNodeId(void);
 void RFM69_setNodeId(uint8_t nodeID);
+bool RFM69_isAlive(void);
 
 
 #ifdef	__cplusplus
