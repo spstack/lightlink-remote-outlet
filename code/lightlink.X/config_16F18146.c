@@ -88,7 +88,6 @@ void enable_interrupts(void)
 {
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
-    PIE0bits.IOCIE = 1; //enable interrupt on change module
 }
 
 void disable_interrupts(void)
@@ -100,6 +99,7 @@ void disable_interrupts(void)
 void enable_pli_int(void)
 {
     PLI_IOC_EN = 1;
+    PIE0bits.IOCIE = 1; //enable interrupt on change module
 }
 
 /**
@@ -119,7 +119,6 @@ void init_GPIOs(void)
     RF_RESET_TRIS = 1; // set rf module reset pin to input initially to make it high-Z as referenced in the datasheet
 
     RF_INT_TRIS = 1; //set RF int pin to input
-    //RF_INT_IOC = 1; //set to interrupt on rising edge of RFM69 interrupt pin
 
     // Setup outlet control pin as output
     LOAD0_TRIS = 0;
@@ -243,5 +242,21 @@ void rand_lfsr_seed(uint16_t seed) {
         seed = 0xe3; // just choose random number
     }
     _rand_seed = seed;
+}
+
+/**
+ * @brief Enter a critical section where interrupts are disabled
+ */
+void enter_critical_section(void)
+{
+    disable_interrupts();
+}
+
+/**
+ * @brief Enter a critical section where interrupts are disabled
+ */
+void exit_critical_section(void)
+{
+    enable_interrupts();
 }
 

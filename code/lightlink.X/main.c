@@ -212,15 +212,5 @@ uint8_t read_channel_code_input(void)
  */
 bool is_hw_ok(void)
 {
-    // Check the RFM module
-    if (!RFM69_isAlive())
-    {
-        // Attempt reset/reinit and return false to indicate something's wrong
-        log_error(ERROR_LEVEL, ERROR_RF_NOT_RESP);
-        RFM69_init(RF69_915MHZ, 0, RFM69_DEFAULT_NETWORK_ID);
-        return false;
-    }
-
-    // All hw ok
     return true;
 }

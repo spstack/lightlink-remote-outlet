@@ -1,6 +1,7 @@
 
 #include <xc.h>
 #include "main.h"
+#include "config.h"
 #include "timer.h"
 
 
@@ -45,6 +46,13 @@ void timer_wait_ms(uint32_t ms)
 
 uint32_t timer_get_ticks(void)
 {
-    return SYSTEM_TICKS;
+    uint32_t temp_ticks = 0;
+
+    // Getting timer ticks has to be an atomic operation because an interrupt can change it
+    enter_critical_section();
+    temp_ticks = SYSTEM_TICKS;
+    exit_critical_section();
+    
+    return temp_ticks;
 }
 

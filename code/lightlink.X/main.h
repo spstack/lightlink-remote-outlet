@@ -77,7 +77,8 @@ typedef enum _error_level_e {
     NO_LOGGING,         // Always the last entry
 } error_level_e;
 
-#define DEFAULT_LOG_LEVEL       (ERROR_LEVEL)   ///< The default log level that will be used
+#define DEFAULT_LOG_LEVEL       (INFO_LEVEL)    ///< The default log level that will be used
+#define TRAP_ERROR              (0)             ///< Set to 1 to hang on first instance of an error and repeatedly flash error code (debug only)
 
 //-------------------------------------------------------------------------
 // ERROR CODES
@@ -94,6 +95,8 @@ typedef enum _error_level_e {
 #define ERROR_RF_SEND_TIMEOUT   0x14    ///< Did not receive a transmit done interrupt after sending packet within allowed time frame
 #define ERROR_RF_NOT_CTS        0x15    ///< When trying to send a packet, timed out waiting for it to be clear to send
 #define ERROR_RF_NOT_RESP       0x16    ///< RF module is not responding to simple register read
+#define ERROR_RF_INVALID_PKT    0x17    ///< Received a packet with an invalid size
+#define ERROR_RF_EXTRA_DATA     0x18    ///< There was extra data left in the FIFO after reading a full packet
 // remote cmd error codes
 #define ERROR_CMD_MAGIC_NUM     0x20    ///< Wrong magic number detected in received command
 #define ERROR_INVALID_OPCODE    0x21    ///< Invalid command opcode

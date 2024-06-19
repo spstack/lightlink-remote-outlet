@@ -15,11 +15,11 @@ void __interrupt () main_isr(void)
     // TIMER 0 SYSTEM TICK interrupt @ 1ms
     if (TMR0IF && TMR0IE)
     {
-        TMR0IF = 0;
-    
-        //init timer 0 so overflow happens in 1ms.
-        // TMR0 = TIMER_INIT_VALUE_1MS;
+        // Increment system ticks
         SYSTEM_TICKS += 1;
+
+        // Clear the interrupt flag
+        TMR0IF = 0;
     }
     
     // If any other IOC flags are set, clear them

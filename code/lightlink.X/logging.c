@@ -22,13 +22,19 @@ void log_error(error_level_e error_level, uint8_t error_code)
 {
     if (log_get_log_level() <= error_level)
     {
-
+#if TRAP_ERROR
+        while (1) {
+#endif
 #ifdef DEBUG_UART_OUT
         uart_send_err_code(error_code);
 #endif
 
 #ifdef DEBUG_LED_BLINK
         LED_blink_err_code(error_code);
+#endif
+#if TRAP_ERROR
+        CLRWDT();
+        }
 #endif
 
     }

@@ -74,6 +74,10 @@ int16_t rand_sample_adc(void);
 void rand_lfsr_seed(uint16_t seed);
 int16_t rand_lfsr16(void);
 
+// Critical section
+void enter_critical_section(void);
+void exit_critical_section(void);
+
 
 
 

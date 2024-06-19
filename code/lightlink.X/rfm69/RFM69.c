@@ -532,6 +532,7 @@ bool RFM69_receivePacketInternal(void)
             // set length to zero so rx_buffer isn't populated, but continue to clear the FIFO
             packetLength = 0;
             targetId = RFM69_INVALID_NODE_ADDR;
+            log_error(ERROR_LEVEL, ERROR_RF_INVALID_PKT);
         }
         
         // Read the body of the packet.
@@ -545,6 +546,7 @@ bool RFM69_receivePacketInternal(void)
         while (RFM69_readReg(REG_IRQFLAGS1) & RF_IRQFLAGS2_FIFONOTEMPTY)
         {
             (void)RFM69_readReg(REG_FIFO);
+            log_error(INFO_LEVEL, ERROR_RF_EXTRA_DATA);
         }
         
         // If this packet is addressed to us, handle the ack and return true
