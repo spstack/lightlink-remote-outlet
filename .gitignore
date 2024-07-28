@@ -1,6 +1,7 @@
 
 # Don't save the backup dir
 _backup
+pcb/lightlink/lightlink-backups/*.zip
 
 # Object Files
 *.o
