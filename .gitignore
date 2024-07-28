@@ -8,3 +8,6 @@ pcb/lightlink/lightlink-backups/*.zip
 
 # Lock Files
 *.lck
+
+# MPLab log files
+code/lightlink.X/queuelogs/debugtool

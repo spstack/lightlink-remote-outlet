@@ -244,7 +244,7 @@ int16_t rand_lfsr16(void) {
 */
 void rand_lfsr_seed(uint16_t seed) {
     if (seed == 0) {
-        log_error(ERROR_LEVEL, ERROR_ZERO_SEED);
+        log_error(INFO_LEVEL, ERROR_ZERO_SEED);
         seed = 0xe3; // just choose random number
     }
     _rand_seed = seed;

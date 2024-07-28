@@ -37,8 +37,8 @@ extern "C" {
 #define RF69_NUM_PKT_HEADER_BYTES 3 // Number bytes that are included in the RFM69 packet header. For now, this is <length> <target_node_id> <control byte>
 
 // Timeouts
-#define RFM69_SEND_TIMEOUT_MS   50 // max time to wait for send complete interrupt (max packet size 66B / bitrate (4.8kbps) = 110ms plus some buffer)
-#define RFM69_ACK_RX_TIMEOUT_MS 50 //max time to wait for an ack
+#define RFM69_SEND_TIMEOUT_MS   150 // max time to wait for send complete interrupt (max packet size 66B / bitrate (4.8kbps) = 110ms plus some buffer)
+#define RFM69_ACK_RX_TIMEOUT_MS 150 //max time to wait for an ack
 #define RFM69_MAX_TX_RETRIES    3
 #define RFM69_INIT_TIMEOUT_MS   500 // number of milliseconds to wait for response from module before declaring failure during initialization
 
@@ -55,7 +55,7 @@ extern "C" {
 #define RF69_MODE_STANDBY       1 // XTAL ON
 #define RF69_MODE_SYNTH         2 // PLL ON
 #define RF69_MODE_RX            3 // RX MODE
-#define RF69_MODE_TX                4 // TX MODE
+#define RF69_MODE_TX            4 // TX MODE
 
     
 // define CTLbyte bits 

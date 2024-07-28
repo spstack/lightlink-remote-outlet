@@ -77,7 +77,7 @@ typedef enum _error_level_e {
     NO_LOGGING,         // Always the last entry
 } error_level_e;
 
-#define DEFAULT_LOG_LEVEL       (INFO_LEVEL)    ///< The default log level that will be used
+#define DEFAULT_LOG_LEVEL       (ERROR_LEVEL)   ///< The default log level that will be used
 #define TRAP_ERROR              (0)             ///< Set to 1 to hang on first instance of an error and repeatedly flash error code (debug only)
 
 //-------------------------------------------------------------------------
