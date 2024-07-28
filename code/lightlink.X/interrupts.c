@@ -35,6 +35,12 @@ void __interrupt () main_isr(void)
         volatile int8_t dummy = 1;
         switch_load_cmd_t temp_command;
 
+        // Indicate PLI has been serviced
+        PLI_INT_FLAG = 0;
+
+        // Disable PLI interrupts so we can't get nested ints
+        disable_pli_int();
+
         // Clear watchdog once before we go down to ensure we don't prematurely reset in the event
         // that this is a power glitch or we lose 12V slowly
         CLRWDT();

@@ -571,8 +571,6 @@ bool RFM69_receivePacketInternal(void)
                 _rx_buffer.length = packetLength;
                 _rx_buffer.has_data = true;
             }
-            
-            
         }
         else
         {
@@ -659,8 +657,10 @@ bool RFM69_checkForRxData(void)
     // Check receive interrupt pin is set, then indicate that there's a packet waiting!
     if ((RFM69_getMode() == RF69_MODE_RX) && (RFM69_get_rf_int_val() == 1))
     {
-        RFM69_receivePacketInternal();
-        have_packet = true;
+        if (RFM69_receivePacketInternal())
+        {
+            have_packet = true;
+        }
     }
 
     // Check for overrun

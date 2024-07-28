@@ -64,6 +64,7 @@ void init_oscillator(void);
 void enable_interrupts(void);
 void disable_interrupts(void);
 void enable_pli_int(void);
+void disable_pli_int(void);
 void init_GPIOs(void);
 void init_SPI(void);
 void init_UART(void);

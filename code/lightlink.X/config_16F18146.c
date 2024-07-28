@@ -26,14 +26,14 @@
 #pragma config BORV = LO        // Brown-out Reset Voltage Selection bit (Brown-out Reset Voltage (VBOR) set to 1.9V)
 #pragma config ZCD = OFF        // ZCD Disable bit (ZCD module is disabled; ZCD can be enabled by setting the ZCDSEN bit of ZCDCON)
 #pragma config PPS1WAY = OFF    // PPSLOCKED One-Way Set Enable bit (The PPSLOCKED bit can be set and cleared as needed (unlocking sequence is required))
-#pragma config STVREN = ON      // Stack Overflow/Underflow Reset Enable bit (Stack Overflow or Underflow will cause a reset)
+#pragma config STVREN = OFF     // Stack Overflow/Underflow Reset Enable bit (Stack Overflow or Underflow will not cause a reset)
 #pragma config DEBUG = OFF      // Background Debugger (Background Debugger disabled)
 
 // CONFIG3
 #pragma config WDTCPS = WDTCPS_31// WDT Period Select bits (Divider ratio 1:65536; software control of WDTPS)
 #pragma config WDTE = ON        // WDT Operating Mode bits (WDT enabled regardless of Sleep; SEN bit is ignored)
 #pragma config WDTCWS = WDTCWS_7// WDT Window Select bits (window always open (100%); software control; keyed access not required)
-#pragma config WDTCCS = SC      // WDT Input Clock Select bits (Software Control)
+#pragma config WDTCCS = LFINTOSC// WDT Input Clock Select bits (WDT reference clock is the 31.0 kHz LFINTOSC)
 
 // CONFIG4
 #pragma config BBSIZE = BB512   // Boot Block Size Selection bits (512 words boot block size)
@@ -100,6 +100,12 @@ void enable_pli_int(void)
 {
     PLI_IOC_EN = 1;
     PIE0bits.IOCIE = 1; //enable interrupt on change module
+}
+
+void disable_pli_int(void)
+{
+    PLI_IOC_EN = 0;
+    PIE0bits.IOCIE = 0;
 }
 
 /**
