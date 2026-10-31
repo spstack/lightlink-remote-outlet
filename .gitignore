@@ -11,3 +11,6 @@ pcb/lightlink/lightlink-backups/*.zip
 
 # MPLab log files
 code/lightlink.X/queuelogs/debugtool
+
+# kicad history
+pcb/lightlink/.history
