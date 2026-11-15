@@ -6478,8 +6478,9 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "390V 1.2kA"
 			(at 66.04 40.64 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7490,8 +7491,8 @@
 				)
 			)
 		)
-		(property "Value" "D_Bridge_+A-A"
-			(at 106.68 36.83 0)
+		(property "Value" "ABS10A-13"
+			(at 105.918 35.56 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7523,8 +7524,9 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Bridge rectifier 1kA 1A"
 			(at 104.14 41.91 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
