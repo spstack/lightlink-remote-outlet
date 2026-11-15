@@ -83,7 +83,7 @@ void LED_blink_err_code(uint8_t error_code)
     // for each bit in 'pattern' blink a long or short pulse
     for(i = 0; i < 8; i++)
     {
-        current_bit = (error_code >> i) & 0x1;
+        current_bit = (uint8_t)((error_code >> i) & 0x1);
         
         if (current_bit)
         {
@@ -115,9 +115,9 @@ void LED_blink_err_code(uint8_t error_code)
         CLRWDT();
     }
 
-    // return pin to 1 
+    // The LED doubles as the load indicator, so return it to match the current load state
     timer_wait_ms(1000);
-    DEBUG_LED_PIN = 1;
+    DEBUG_LED_PIN = (uint8_t)(global_data.current_switch_val != 0);
 
     CLRWDT();
 }

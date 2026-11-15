@@ -55,9 +55,13 @@ void __interrupt () main_isr(void)
         // First turn off our own switch to conserve energy
         switch_load(LOAD_ID_OUTLET_0, SWITCH_OFF);
 
+        // We may have interrupted the radio driver part way through a mode change or send, so
+        // put the module into a known state before using it
+        RFM69_abortToStandby();
+
         // Next send several switch off commands to the other terminal in quick succession
         for (int8_t i = 0; i < 10; i++) {
-            (void)RFM69_sendFrame(global_data.current_channel, &temp_command, sizeof(switch_load_cmd_t), false, false);
+            (void)RFM69_sendFrame(global_data.current_channel, (uint8_t *)&temp_command, sizeof(switch_load_cmd_t), false, false);
         }
         
         // Spin forever until we lose power or watchdog resets us...

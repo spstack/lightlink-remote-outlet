@@ -47,7 +47,7 @@
 
     
 //========================== DEFINITIONS ===============================
-#define TIMER_INIT_VALUE_1MS 131 //value that timer reg needs to be set to to interrupt every 1ms
+#define TIMER_INIT_VALUE_1MS 124 // TMR0H period match value for a 1ms interrupt: (124 + 1) counts @ 125kHz
 
 // PPS Defines for inputs
 #define PPS_PORTA       (0x00)
@@ -74,10 +74,11 @@ void init_timers(void);
 int16_t rand_sample_adc(void);
 void rand_lfsr_seed(uint16_t seed);
 int16_t rand_lfsr16(void);
+void rand_lfsr_stir(uint8_t entropy);
 
 // Critical section
-void enter_critical_section(void);
-void exit_critical_section(void);
+uint8_t enter_critical_section(void);
+void exit_critical_section(uint8_t was_enabled);
 
 
 

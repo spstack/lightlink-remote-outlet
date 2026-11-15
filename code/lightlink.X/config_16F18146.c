@@ -72,7 +72,7 @@ void initialize_peripherals(void)
 
     init_UART();
 
-    rand_lfsr_seed(rand_sample_adc());
+    rand_lfsr_seed((uint16_t)rand_sample_adc());
 }
 
 
@@ -161,7 +161,7 @@ void init_timers(void)
     T0CON1bits.CKPS = 5; // prescalar of 32 = 125kHz
     T0CON1bits.CS = 2; // select FOSC/4 as clock source
     TMR0L = 0; // initialize to zero
-    TMR0H = TIMER_INIT_VALUE_1MS; // this is the value that TMR0 will reset to when reached and generate an interrupt. This is 125 @ 125kHz or once every 1ms
+    TMR0H = TIMER_INIT_VALUE_1MS; // period match value: TMR0L resets and interrupts when it reaches this, so the period is (value + 1) = 125 counts @ 125kHz or once every 1ms
     PIE0bits.TMR0IE = 1; //enable timer interrupt
     T0CON0bits.EN = 1; // enable the timer
 
@@ -251,18 +251,38 @@ void rand_lfsr_seed(uint16_t seed) {
 }
 
 /**
- * @brief Enter a critical section where interrupts are disabled
+ * @brief Stir extra entropy into the random number generator
+ * @details Mixes the caller's value with the free running timer count, then steps the LFSR.
+ * Without this every unit would generate the same sequence from the same fixed seed.
  */
-void enter_critical_section(void)
-{
-    disable_interrupts();
+void rand_lfsr_stir(uint8_t entropy) {
+    _rand_seed ^= (uint16_t)(((uint16_t)TMR0L << 8) | entropy);
+    if (_rand_seed == 0) {
+        _rand_seed = 0xe3; // LFSR must never be zero
+    }
+    (void)rand_lfsr16();
 }
 
 /**
  * @brief Enter a critical section where interrupts are disabled
+ * @return the previous global interrupt enable state, to be passed to exit_critical_section()
  */
-void exit_critical_section(void)
+uint8_t enter_critical_section(void)
 {
-    enable_interrupts();
+    uint8_t was_enabled = INTCONbits.GIE;
+    INTCONbits.GIE = 0;
+    return was_enabled;
+}
+
+/**
+ * @brief Exit a critical section, restoring the interrupt state from before it was entered
+ * @details Interrupts are only re-enabled if they were enabled on entry. This makes it safe to
+ * use from inside an interrupt handler, where interrupts must stay disabled.
+ */
+void exit_critical_section(uint8_t was_enabled)
+{
+    if (was_enabled) {
+        INTCONbits.GIE = 1;
+    }
 }
 

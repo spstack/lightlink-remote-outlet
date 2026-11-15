@@ -37,17 +37,18 @@ extern "C" {
 #define RF69_NUM_PKT_HEADER_BYTES 3 // Number bytes that are included in the RFM69 packet header. For now, this is <length> <target_node_id> <control byte>
 
 // Timeouts
-#define RFM69_SEND_TIMEOUT_MS   150 // max time to wait for send complete interrupt (max packet size 66B / bitrate (4.8kbps) = 110ms plus some buffer)
+#define RFM69_SEND_TIMEOUT_MS   20  // max time to wait for send complete interrupt (max packet of 66B plus preamble/sync/CRC at 100kbps is ~6ms, so this leaves over 3x margin)
 #define RFM69_ACK_RX_TIMEOUT_MS 150 //max time to wait for an ack
 #define RFM69_MAX_TX_RETRIES    3
 #define RFM69_INIT_TIMEOUT_MS   500 // number of milliseconds to wait for response from module before declaring failure during initialization
 
 // Network IDs
 #define RFM69_DEFAULT_NETWORK_ID    (0x55)  ///< Default network ID to be used by remote
-#define RF69_BROADCAST_ADDR         0
+#define RF69_BROADCAST_ADDR         0xFF    ///< Packets sent to this address are accepted by every node. Kept outside the 0-15 range of the channel DIP switches
 #define RFM69_INVALID_NODE_ADDR     0xFE    ///< Invalid target/node ID used internally
 
 // Packet defines
+#define RF69_FIFO_SIZE          66 // size of the module's internal FIFO in bytes
 #define RF69_MAX_DATA_LEN       61 // to take advantage of the built in AES/CRC we want to limit the frame size to the internal FIFO size (66 bytes - 3 bytes overhead - 2 bytes crc)
 
 // Modes of operation
@@ -91,6 +92,7 @@ uint8_t RFM69_readReg(uint8_t addr);
 void RFM69_writeReg(uint8_t addr, uint8_t val);
 uint8_t RFM69_getMode(void);
 void RFM69_setMode(uint8_t newMode);
+void RFM69_abortToStandby(void);
 bool RFM69_sendFrame(uint8_t toAddress, uint8_t *dataToSend, uint8_t dataLength, bool requestAck, bool sendAck);
 bool RFM69_sendPacket(uint8_t toAddress, uint8_t *dataToSend, uint8_t dataLength, bool requestAck);
 bool RFM69_checkForRxData(void);

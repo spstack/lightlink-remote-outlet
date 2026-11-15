@@ -48,10 +48,25 @@ void RFM69_setup_pins(void)
 
 /**
  * @brief Set the chip select pin either high (inactive) or low (active)
+ * @details Interrupts are held off for as long as chip select is low. The power loss interrupt
+ * talks to the radio, so it must never land in the middle of another SPI transaction.
+ * Nothing that waits on the system tick may be called while chip select is low.
 */
 void RFM69_set_chipselect(uint8_t level)
 {
-    RF_CS_PIN = level;
+    static uint8_t int_state = 0;
+
+    if (level == 0)
+    {
+        int_state = enter_critical_section();
+        RF_CS_PIN = 0;
+    }
+    else
+    {
+        RF_CS_PIN = 1;
+        exit_critical_section(int_state);
+        int_state = 0;
+    }
 }
 
 
@@ -105,7 +120,7 @@ void RFM69_init(uint8_t freqBand, uint16_t nodeID, uint8_t networkID)
       /* 0x02 */ { REG_DATAMODUL, RF_DATAMODUL_DATAMODE_PACKET | RF_DATAMODUL_MODULATIONTYPE_FSK | RF_DATAMODUL_MODULATIONSHAPING_00 }, // no shaping
       /* 0x03 */ { REG_BITRATEMSB, RF_BITRATEMSB_100000}, // Set to 100kbps bitrate
       /* 0x04 */ { REG_BITRATELSB, RF_BITRATELSB_100000},
-      /* 0x05 */ { REG_FDEVMSB, RF_FDEVMSB_50000}, // default: 5KHz, (FDEV + BitRate / 2 <= 500KHz)
+      /* 0x05 */ { REG_FDEVMSB, RF_FDEVMSB_50000}, // Set to 50kHz deviation (chip default is 5kHz), (FDEV + BitRate / 2 <= 500KHz)
       /* 0x06 */ { REG_FDEVLSB, RF_FDEVLSB_50000},
 
       /* 0x07 */ { REG_FRFMSB, (uint8_t) RF_FRFMSB_915},
@@ -121,12 +136,12 @@ void RFM69_init(uint8_t freqBand, uint16_t nodeID, uint8_t networkID)
       /* 0x13 */ { REG_OCP, RF_OCP_ON | RF_OCP_TRIM_95 }, // over current protection (default is 95mA)
 
       // RXBW defaults are { REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_24 | RF_RXBW_EXP_5} (RxBw: 10.4KHz)
-      /* 0x19 */ { REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_16 | RF_RXBW_EXP_2 }, // (BitRate < 2 * RxBw)
+      /* 0x19 */ { REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_16 | RF_RXBW_EXP_2 }, // RxBw: 125kHz single-sided (BitRate < 2 * RxBw)
       //for BR-19200: /* 0x19 */ { REG_RXBW, RF_RXBW_DCCFREQ_010 | RF_RXBW_MANT_24 | RF_RXBW_EXP_3 },
       /* 0x25 */ { REG_DIOMAPPING1, RF_DIOMAPPING1_DIO0_01 }, // DIO0 is the only IRQ we're using - this will be changed as the mode changes
       /* 0x26 */ { REG_DIOMAPPING2, RF_DIOMAPPING2_CLKOUT_OFF }, // DIO5 ClkOut disable for power saving
       /* 0x28 */ { REG_IRQFLAGS2, RF_IRQFLAGS2_FIFOOVERRUN }, // writing to this bit ensures that the FIFO & status flags are reset
-      /* 0x29 */ { REG_RSSITHRESH, 220 }, // must be set to dBm = (-Sensitivity / 2), default is 0xE4 = 228 so -114dBm
+      /* 0x29 */ { REG_RSSITHRESH, 220 }, // -110dBm. Must be set to dBm = (-Sensitivity / 2), default is 0xE4 = 228 so -114dBm
       /* 0x2D */ { REG_PREAMBLELSB, RF_PREAMBLESIZE_LSB_VALUE }, // default 3 preamble bytes 0xAAAAAA
       /* 0x2E */ { REG_SYNCCONFIG, RF_SYNC_ON | RF_SYNC_FIFOFILL_AUTO | RF_SYNC_SIZE_2 | RF_SYNC_TOL_0 },
       /* 0x2F */ { REG_SYNCVALUE1, 0xAA },
@@ -270,27 +285,42 @@ void RFM69_setMode(uint8_t newMode)
 
     switch (newMode) {
         case RF69_MODE_TX:
-            RFM69_writeReg(REG_OPMODE, (RFM69_readReg(REG_OPMODE) & 0xE3) | RF_OPMODE_TRANSMITTER);
+            RFM69_writeReg(REG_OPMODE, (uint8_t)((RFM69_readReg(REG_OPMODE) & 0xE3) | RF_OPMODE_TRANSMITTER));
             //setHighPowerRegs(true);
             break;
         case RF69_MODE_RX:
-            RFM69_writeReg(REG_OPMODE, (RFM69_readReg(REG_OPMODE) & 0xE3) | RF_OPMODE_RECEIVER);
+            RFM69_writeReg(REG_OPMODE, (uint8_t)((RFM69_readReg(REG_OPMODE) & 0xE3) | RF_OPMODE_RECEIVER));
             //setHighPowerRegs(false);
             break;
         case RF69_MODE_SYNTH:
-            RFM69_writeReg(REG_OPMODE, (RFM69_readReg(REG_OPMODE) & 0xE3) | RF_OPMODE_SYNTHESIZER);
+            RFM69_writeReg(REG_OPMODE, (uint8_t)((RFM69_readReg(REG_OPMODE) & 0xE3) | RF_OPMODE_SYNTHESIZER));
             break;
         case RF69_MODE_STANDBY:
-            RFM69_writeReg(REG_OPMODE, (RFM69_readReg(REG_OPMODE) & 0xE3) | RF_OPMODE_STANDBY);
+            RFM69_writeReg(REG_OPMODE, (uint8_t)((RFM69_readReg(REG_OPMODE) & 0xE3) | RF_OPMODE_STANDBY));
             break;
         case RF69_MODE_SLEEP:
-            RFM69_writeReg(REG_OPMODE, (RFM69_readReg(REG_OPMODE) & 0xE3) | RF_OPMODE_SLEEP);
+            RFM69_writeReg(REG_OPMODE, (uint8_t)((RFM69_readReg(REG_OPMODE) & 0xE3) | RF_OPMODE_SLEEP));
             break;
         default:
             return;
     }
     
     _currentMode = newMode;
+}
+
+
+/**
+ * @brief Abandon whatever the driver was doing and force the module into standby with an empty FIFO
+ * @details Intended for the power loss interrupt, which can interrupt the driver part way through
+ * a mode change or send. It does not trust the cached operating mode.
+ */
+void RFM69_abortToStandby(void)
+{
+    RFM69_writeReg(REG_OPMODE, RF_OPMODE_SEQUENCER_ON | RF_OPMODE_LISTEN_OFF | RF_OPMODE_STANDBY);
+    _currentMode = RF69_MODE_STANDBY;
+
+    // Writing the overrun flag clears the FIFO, dropping any half loaded frame
+    RFM69_writeReg(REG_IRQFLAGS2, RF_IRQFLAGS2_FIFOOVERRUN);
 }
 
 
@@ -317,7 +347,7 @@ bool RFM69_canSend(void)
     // Now check to make sure nothing is still transmitting, repeat until no traffic detected or max time
     do {
         // Reset Rx to reset the RSSI sensing
-        RFM69_writeReg(REG_PACKETCONFIG2, RFM69_readReg(REG_PACKETCONFIG2) | RF_PACKET2_RXRESTART);
+        RFM69_writeReg(REG_PACKETCONFIG2, (uint8_t)(RFM69_readReg(REG_PACKETCONFIG2) | RF_PACKET2_RXRESTART));
 
         // Wait for Rx to be ready before reading Rx
         while((RFM69_readReg(REG_IRQFLAGS1) & RF_IRQFLAGS1_MODEREADY) == 0)
@@ -331,12 +361,17 @@ bool RFM69_canSend(void)
         // Check for received packet to make sure one didn't come in since last time we checked.
         // If so, transfer to internal buffer
         RFM69_checkForRxData();
-        
+
+        // The time the radio took to become ready is not synchronized to our clock, so use it to
+        // stir the random number generator. Otherwise two units would pick identical wait times
+        rand_lfsr_stir(0);
+
         // Wait a random small amount of time to let RSSI detect a signal from another transmitter
-        timer_wait_ms(rand_lfsr16() & wait_time_mask);
-        
+        timer_wait_ms((uint32_t)(rand_lfsr16() & wait_time_mask));
+
         // Check to see whether the RSSI limit has exceeded the threshold (there's traffic on the link)
         rssi_val = (int16_t)RFM69_readReg(REG_RSSIVALUE);
+        rand_lfsr_stir((uint8_t)rssi_val); // RSSI noise is a second source of randomness
         rssi_val = -rssi_val;
         rssi_val >>= 1; // divide by 2 to get value in dBm (per datasheet)
         if (rssi_val < CSMA_LIMIT)
@@ -399,7 +434,7 @@ bool RFM69_sendFrame(uint8_t toAddress, uint8_t *dataToSend, uint8_t dataLength,
     // Load packet header first
     RFM69_set_chipselect(0);
     spi_writebyte(REG_FIFO | RF69_REG_WRITE_MASK);  // set bit 7 to indicate a write to the FIFO
-    spi_writebyte(dataLength + (RF69_NUM_PKT_HEADER_BYTES - 1));   // add 2 to length to include address field and crtlByte (which is only added by this driver)
+    spi_writebyte((uint8_t)(dataLength + (RF69_NUM_PKT_HEADER_BYTES - 1)));   // add 2 to length to include address field and crtlByte (which is only added by this driver)
     spi_writebyte(toAddress);
     spi_writebyte(ctrlByte);
     for (i = 0; i < dataLength; i++)
@@ -415,9 +450,10 @@ bool RFM69_sendFrame(uint8_t toAddress, uint8_t *dataToSend, uint8_t dataLength,
     {
         if (timer_has_time_elapsed(startTime, RFM69_SEND_TIMEOUT_MS))
         {
-            log_error(ERROR_LEVEL, ERROR_RF_SEND_TIMEOUT);
+            // Restore the radio first so it isn't left transmitting while the error is reported
             RFM69_writeReg(REG_DIOMAPPING1, RF_DIOMAPPING1_DIO0_01); // set DIO0 to "PAYLOADREADY" in receive mode
             RFM69_setMode(startMode); //set mode back to what it was at the start
+            log_error(ERROR_LEVEL, ERROR_RF_SEND_TIMEOUT);
             return false;
         }
     }
@@ -507,6 +543,8 @@ bool RFM69_receivePacketInternal(void)
     uint8_t ctrlByte;
     uint8_t targetId;
     uint8_t i;
+    bool invalidPacket = false;
+    bool extraData = false;
 
     // Make sure payload is ready to be received
     if (RFM69_readReg(REG_IRQFLAGS2) & RF_IRQFLAGS2_PAYLOADREADY)
@@ -532,9 +570,9 @@ bool RFM69_receivePacketInternal(void)
             // set length to zero so rx_buffer isn't populated, but continue to clear the FIFO
             packetLength = 0;
             targetId = RFM69_INVALID_NODE_ADDR;
-            log_error(ERROR_LEVEL, ERROR_RF_INVALID_PKT);
+            invalidPacket = true; // reported below, once chip select has been released
         }
-        
+
         // Read the body of the packet.
         for (i = 0; i < packetLength; i++)
         {
@@ -542,10 +580,24 @@ bool RFM69_receivePacketInternal(void)
         }
         RFM69_set_chipselect(1);
 
-        // Check to make sure fifo is actually empty, if not clock out all remaining bytes
-        while (RFM69_readReg(REG_IRQFLAGS1) & RF_IRQFLAGS2_FIFONOTEMPTY)
+        // Check to make sure fifo is actually empty, if not clock out all remaining bytes.
+        // Bounded by the FIFO size so a stuck SPI bus can't hang us here
+        for (i = 0; i < RF69_FIFO_SIZE; i++)
         {
+            if ((RFM69_readReg(REG_IRQFLAGS2) & RF_IRQFLAGS2_FIFONOTEMPTY) == 0)
+            {
+                break;
+            }
             (void)RFM69_readReg(REG_FIFO);
+            extraData = true;
+        }
+
+        if (invalidPacket)
+        {
+            log_error(ERROR_LEVEL, ERROR_RF_INVALID_PKT);
+        }
+        else if (extraData)
+        {
             log_error(INFO_LEVEL, ERROR_RF_EXTRA_DATA);
         }
         
@@ -666,7 +718,8 @@ bool RFM69_checkForRxData(void)
     // Check for overrun
     if (_rx_buffer.overrun)
     {
-        // Indicate error, but don't need to actually clear anything because newest packet has overwritten old one
+        // Indicate error once, but don't need to clear the data because newest packet has overwritten old one
+        _rx_buffer.overrun = false;
         log_error(ERROR_LEVEL, ERROR_RF_RX_OVERFLOW);
     }
     

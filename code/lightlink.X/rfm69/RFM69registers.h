@@ -6,25 +6,25 @@
 // **********************************************************************************
 // License
 // **********************************************************************************
-// This program is free software; you can redistribute it 
-// and/or modify it under the terms of the GNU General    
-// Public License as published by the Free Software       
-// Foundation; either version 2 of the License, or        
-// (at your option) any later version.                    
-//                                                        
-// This program is distributed in the hope that it will   
-// be useful, but WITHOUT ANY WARRANTY; without even the  
-// implied warranty of MERCHANTABILITY or FITNESS FOR A   
-// PARTICULAR PURPOSE.  See the GNU General Public        
-// License for more details.                              
-//                                                        
-// You should have received a copy of the GNU General    
-// Public License along with this program; if not, write 
-// to the Free Software Foundation, Inc.,                
+// This program is free software; you can redistribute it
+// and/or modify it under the terms of the GNU General
+// Public License as published by the Free Software
+// Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will
+// be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A
+// PARTICULAR PURPOSE.  See the GNU General Public
+// License for more details.
+//
+// You should have received a copy of the GNU General
+// Public License along with this program; if not, write
+// to the Free Software Foundation, Inc.,
 // 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
-//                                                        
-// Licence can be viewed at                               
-// http://www.fsf.org/licenses/gpl.txt                    
+//
+// Licence can be viewed at
+// http://www.fsf.org/licenses/gpl.txt
 //
 // Please maintain this license information along with authorship
 // and copyright notices in any redistribution of this code
@@ -92,6 +92,7 @@
 #define REG_BROADCASTADRS 0x3A
 #define REG_AUTOMODES     0x3B
 #define REG_FIFOTHRESH    0x3C
+#define REG_PACKETCONFIG2 0x3D
 #define REG_PACKETCONFIG2 0x3D
 #define REG_AESKEY1       0x3E
 #define REG_AESKEY2       0x3F

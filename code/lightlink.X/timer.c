@@ -49,9 +49,9 @@ uint32_t timer_get_ticks(void)
     uint32_t temp_ticks = 0;
 
     // Getting timer ticks has to be an atomic operation because an interrupt can change it
-    enter_critical_section();
+    uint8_t int_state = enter_critical_section();
     temp_ticks = SYSTEM_TICKS;
-    exit_critical_section();
+    exit_critical_section(int_state);
     
     return temp_ticks;
 }

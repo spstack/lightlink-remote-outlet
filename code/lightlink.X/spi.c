@@ -88,11 +88,18 @@ int spi_writebyte(uint8_t b)
 {
     uint32_t start_ticks = 0;
     
+    volatile uint8_t discard;
+
     // write byte to the buffer register to initiate the transfer
     SSP1BUF = b;
-    
+
     // Wait for spi to be done transferring
     while(!SSP1STATbits.BF);
+
+    // Read and discard the byte clocked in during the write. The buffer full flag is only
+    // cleared by reading the buffer, and the next transfer waits on that flag
+    discard = SSP1BUF;
+    (void)discard;
 
     // Clear int flag just in case
     SSP1IF = 0;

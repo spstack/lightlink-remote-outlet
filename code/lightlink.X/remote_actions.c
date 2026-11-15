@@ -75,7 +75,7 @@ int send_load_switch_cmd(uint8_t load_id, uint8_t on_off)
     temp_command.on_off = on_off;
    
     // Send the command!
-    bool send_success = RFM69_sendPacket(global_data.current_channel, &temp_command, sizeof(switch_load_cmd_t), true);
+    bool send_success = RFM69_sendPacket(global_data.current_channel, (uint8_t *)&temp_command, sizeof(switch_load_cmd_t), true);
    
     if (send_success) {
         global_data.time_last_pwron_sent = timer_get_ticks();
@@ -96,11 +96,18 @@ int handle_received_command(uint8_t *cmd_buf, int cmd_length)
         return ERROR_NULL_PTR;
     }
 
-    if (cmd_length > sizeof(remote_cmd_t)) {
+    // The packet must hold at least a full header and no more than a full command. Anything
+    // shorter would be decoded using bytes left in the buffer from an earlier packet
+    if ((cmd_length < (int)sizeof(remote_cmd_header_t)) || (cmd_length > (int)sizeof(remote_cmd_t))) {
         return ERROR_INV_BUF_SIZE;
     }
 
     remote_cmd_t *cmd = (remote_cmd_t *)cmd_buf;
+
+    // The body length in the header must agree with what was actually received
+    if ((int)cmd->header.bodyLength != (cmd_length - (int)sizeof(remote_cmd_header_t))) {
+        return ERROR_INV_BUF_SIZE;
+    }
 
     // Ensure that cmd magic number is correct
     if (cmd->header.magic_num != CMD_MAGIC_BYTE_VAL) {
@@ -111,6 +118,9 @@ int handle_received_command(uint8_t *cmd_buf, int cmd_length)
     switch(cmd->header.opcode)
     {
         case SWITCH_LOAD_OPCODE:
+            if (cmd_length < (int)sizeof(switch_load_cmd_t)) {
+                return ERROR_INV_BUF_SIZE;
+            }
             retval = cmd_switch_load_handler(cmd);
             break;
         
